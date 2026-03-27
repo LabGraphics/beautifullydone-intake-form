@@ -1,27 +1,93 @@
-@layer base {
-  body {
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-    color: #0A1A2F;
-  }
-  h1 { font-size: 2.25rem; font-weight: 700; line-height: 1.2; }
-  h2 { font-size: 1.875rem; font-weight: 700; line-height: 1.3; }
-  p { font-size: 1rem; line-height: 1.5; color: #374151; }
-  
-  @media (min-width: 768px) {
-    h1 { font-size: 3rem; }
-    h2 { font-size: 2.25rem; }
-    p { font-size: 1.125rem; }
-  }
+:root {
+  --bd-navy: #1a2a42;
+  --bd-blush: #f7e7e8;
+  --bd-gold: #d4b98c;
+  --bd-text: #2a2a2a;
+  --bd-radius: 10px;
+  --bd-transition: 0.25s ease;
+  --bd-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+body {
+  background: #faf9f9;
+  font-family: "Inter", sans-serif;
+  color: var(--bd-text);
+  margin: 0;
+  padding: 0;
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
+form {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--bd-radius);
+  box-shadow: var(--bd-shadow);
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--bd-navy);
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--bd-radius);
+  border: 1.5px solid var(--bd-blush);
+  background: #fff;
+  font-size: 1rem;
+  transition: var(--bd-transition);
+  margin-bottom: 1.4rem;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--bd-navy);
+  box-shadow: 0 0 0 3px rgba(26, 42, 66, 0.15);
+}
+
+button {
+  background: var(--bd-navy);
+  color: white;
+  padding: 14px 22px;
+  border: none;
+  border-radius: var(--bd-radius);
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--bd-transition);
+  width: 100%;
+  box-shadow: var(--bd-shadow);
+}
+
+button:hover {
+  background: var(--bd-gold);
+  color: var(--bd-navy);
+}
+
+h2, h3 {
+  color: var(--bd-navy);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.section-divider {
+  height: 1px;
+  background: var(--bd-blush);
+  margin: 2rem 0;
+}
+
+@media (max-width: 600px) {
+  form {
+    padding: 1.4rem;
+  }
+
+  button {
+    padding: 12px 18px;
+  }
 }
