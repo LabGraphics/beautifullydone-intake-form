@@ -8,9 +8,8 @@ export default function ConfirmationScreen() {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full mx-auto min-h-[60vh] flex items-center animate-fade-in px-4 sm:px-0">
-      <StepContainer className="w-full mx-auto !p-8 md:!p-12 sm:max-w-[640px] md:max-w-[700px] lg:max-w-[800px] xl:max-w-[900px]">
-        <div className="text-center py-8">
+    <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6 text-center text-[#0D1B2A]">
+        <div className="text-center py-8 flex flex-col items-center">
           <div className="w-20 h-20 bg-[#E8A6B8]/10 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
             <svg className="w-10 h-10 text-[#E8A6B8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
@@ -23,14 +22,13 @@ export default function ConfirmationScreen() {
           <div className="flex justify-center w-full">
             <button
               onClick={() => navigate('/step1')}
-              className="w-full sm:w-auto px-10 py-4 font-semibold text-[#0D1B2A] bg-[#E8A6B8] rounded-lg hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg"
+              className="w-full sm:w-auto px-10 py-4 font-semibold text-[#0D1B2A] bg-[#E8A6B8] rounded-lg hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg mt-10"
             >
               Start New Form
             </button>
           </div>
         </div>
-      <ContactFooter />
-      </StepContainer>
+      <ContactFooter className="mt-10 mb-6" />
     </div>
   );
 }

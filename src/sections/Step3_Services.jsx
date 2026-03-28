@@ -67,12 +67,10 @@ export default function Step3_Services() {
 
   return (
     <StepTransition stepKey="step4">
-      <StepContainer>
-      <div className="mb-8 sm:mb-10 text-center">
+      <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Services Needed</h2>
-        <p className="bd-helper-text mt-2 text-center text-lg">Which services would you like Beautifully Done to provide?</p>
-      </div>
-      <div className="w-full flex flex-col items-center">
+        <p className="bd-helper-text text-lg">Which services would you like Beautifully Done to provide?</p>
+        <div className="space-y-6 w-full">
         <div>
       <CheckboxGroup
           label=""
@@ -85,9 +83,9 @@ export default function Step3_Services() {
       {softWarnings.servicesNeeded && <p className="bd-warning-text">{softWarnings.servicesNeeded}</p>}
     </div>
       </div>
-      <NavigationButtons onBack={() => navigate('/step2')} onNext={handleNext} />
-    <ContactFooter />
-      </StepContainer>
+      <NavigationButtons onBack={() => navigate('/step2')} onNext={handleNext} className="mt-10" />
+      <ContactFooter className="mt-10 mb-6" />
+      </div>
     </StepTransition>
   );
 }

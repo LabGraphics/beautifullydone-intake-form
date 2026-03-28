@@ -2,7 +2,7 @@ import emailjs from '@emailjs/browser';
 
 export async function sendEmail(formData) {
   const templateParams = {
-    to_email: 'matthewgongbee@gmail.com',
+    to_email: 'vfully@yahoo.com',
     event_name: formData.eventName,
     contact_name: formData.contactName,
     contact_email: formData.contactEmail,
@@ -31,9 +31,19 @@ export async function sendEmail(formData) {
     `
   };
 
+  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || '';
+  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
+  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '';
+
   try {
-    console.log("Simulating emailJS.send...", templateParams);
-    return new Promise((resolve) => setTimeout(() => resolve({status: 200}), 500));
+    if (!serviceId || !templateId || !publicKey) {
+      console.warn("EmailJS keys are missing. Skipping actual email send.", templateParams);
+      return new Promise((resolve) => setTimeout(() => resolve({status: 200}), 500));
+    }
+
+    const response = await emailjs.send(serviceId, templateId, templateParams, publicKey);
+    console.log("Email successfully sent!", response.status, response.text);
+    return response;
   } catch (error) {
     console.error("Failed to send email", error);
     throw error;

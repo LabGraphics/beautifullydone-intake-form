@@ -56,12 +56,10 @@ export default function Step2_Location() {
 
   return (
     <StepTransition stepKey="step2">
-      <StepContainer>
-      <div className="mb-8 sm:mb-10 text-center">
+      <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Event Location</h2>
-        <p className="bd-helper-text mt-2 text-center text-lg">Where and when will your event take place?</p>
-      </div>
-      <div className="space-y-4 sm:space-y-5 w-full flex flex-col items-center">
+        <p className="bd-helper-text text-lg">Where and when will your event take place?</p>
+        <div className="space-y-6 w-full">
         <div>
       <SelectField 
           label="Where will your event take place?" 
@@ -133,9 +131,9 @@ export default function Step2_Location() {
       {softWarnings.endTime && <p className="bd-warning-text">{softWarnings.endTime}</p>}
     </div>
       </div>
-      <NavigationButtons onBack={() => navigate('/step1')} onNext={handleNext} />
-    <ContactFooter />
-      </StepContainer>
+      <NavigationButtons onBack={() => navigate('/step1')} onNext={handleNext} className="mt-10" />
+      <ContactFooter className="mt-10 mb-6" />
+      </div>
     </StepTransition>
   );
 }

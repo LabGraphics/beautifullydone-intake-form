@@ -45,15 +45,11 @@ export default function SummaryScreen() {
 
   return (
     <StepTransition stepKey="summary">
-      <StepContainer>
-        <div className="bd-section">
-      <div className="mb-8 text-center sm:max-w-[550px] sm:mx-auto">
+      <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Review Your Details</h2>
-        <p className="mt-2 text-gray-500 text-lg sm:text-xl">Please review the details below before submitting.</p>
-      </div>
-      
-      <div className="space-y-6 bg-white rounded-xl border border-gray-100 shadow-sm p-4 sm:p-6 mb-8 max-w-[500px] md:max-w-[550px] mx-auto w-full">
-        <h3 className="font-semibold text-lg text-[#0D1B2A] border-b pb-2 mb-2">Event Details</h3>
+        <p className="bd-helper-text text-lg">Please review the details below before submitting.</p>
+        <div className="space-y-6 w-full text-left">
+          <h3 className="font-semibold text-lg text-[#0D1B2A] border-b pb-2 mb-2">Event Details</h3>
         <SummaryItem label="Event Name" value={formData.eventName} />
         <SummaryItem label="Event Type" value={formData.eventType} />
         <SummaryItem label="Event Date" value={formData.eventDate} />
@@ -83,11 +79,10 @@ export default function SummaryScreen() {
         <SummaryItem label="Phone Number" value={formData.phoneNumber} />
         <SummaryItem label="Preferred Contact" value={formData.preferredContact} />
         <SummaryItem label="Final Notes" value={formData.finalNotes} />
+        </div>
+        <NavigationButtons onBack={() => navigate('/step8')} onNext={handleSubmit} nextLabel={isSubmitting ? 'Submitting...' : 'Submit'} disableNext={isSubmitting} className="mt-10" />
+        <ContactFooter className="mt-10 mb-6" />
       </div>
-      <NavigationButtons onBack={() => navigate('/step8')} onNext={handleSubmit} nextLabel={isSubmitting ? 'Submitting...' : 'Submit and Send'} disableNext={isSubmitting} />
-      <ContactFooter />
-      </div>
-      </StepContainer>
     </StepTransition>
   );
 }

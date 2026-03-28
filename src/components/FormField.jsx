@@ -5,7 +5,7 @@ export default function FormField({ label, type = 'text', value, onChange, place
   const baseClasses = `bd-input ${error ? 'error' : ''}`;
   
   return (
-    <div className="flex flex-col mb-6 w-full sm:max-w-[500px] sm:mx-auto md:max-w-[550px]">
+    <div className="flex flex-col w-full text-left">
       {label && <label className="bd-label">{label}</label>}
       {isTextArea ? (
         <motion.textarea whileFocus={{ scale: 1.01 }} transition={{ duration: 0.15, ease: "easeOut" }} value={value} onChange={onChange} placeholder={placeholder} className={`${baseClasses} min-h-[140px] resize-y`} />

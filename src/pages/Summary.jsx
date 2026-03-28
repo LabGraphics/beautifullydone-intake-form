@@ -11,9 +11,10 @@ export default function Summary() {
 
   return (
     <StepTransition stepKey="summary">
-      <div className="bd-section">
-      <h2>Review Your Event Details</h2>
-      <p>Please review and edit any section before submitting your information.</p>
+      <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
+        <h2>Review Your Event Details</h2>
+        <p className="bd-helper-text text-lg">Please review and edit any section before submitting your information.</p>
+        <div className="space-y-6 w-full text-left">
 
       {/* 1. Event Details */}
       <motion.section className="summary-section" variants={itemVar}>
@@ -125,9 +126,11 @@ export default function Summary() {
         <motion.div className="bd-divider" variants={itemVar}></motion.div>
       </motion.section>
 
-      <button className="submit-button" onClick={() => navigate('/confirmation')}>
-        Submit My Event Details
-      </button>
+        </div>
+        <button className="submit-button mt-10" onClick={() => navigate('/confirmation')}>
+          Submit
+        </button>
+        <ContactFooter className="mt-10 mb-6" />
       </div>
     </StepTransition>
   );

@@ -14,14 +14,14 @@ export default function Confirmation() {
   };
 
   return (
-    <motion.div initial={{ opacity: 0, scale: 1.02 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.35, ease: "easeOut" }} className="confirmation-container">
-      <h1>Thank You!</h1>
-      <p className="subtitle">Your event details were submitted successfully.</p>
+    <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6 text-center text-[#0D1B2A]">
+      <h2>Thank You!</h2>
+      <p className="bd-helper-text text-lg">Your event details were submitted successfully.</p>
       <p>We will review your information and follow up shortly.</p>
-      
-      <button className="submit-button w-full mt-6" onClick={handleReturnHome}>
+      <button onClick={handleReturnHome} className="w-full sm:w-auto px-10 py-4 font-semibold text-[#0D1B2A] bg-[#E8A6B8] rounded-lg hover:scale-105 transition-all mt-10">
         Return to Home
       </button>
-    </motion.div>
+      <ContactFooter className="mt-10 mb-6" />
+    </div>
   );
 }

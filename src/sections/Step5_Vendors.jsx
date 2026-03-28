@@ -77,9 +77,9 @@ export default function Step5_Vendors() {
   const showNotes = additionalVendors.length > 0 && !additionalVendors.includes('I do not need additional services');
 
   const ManualCheckboxList = ({ title, options }) => (
-    <div className="mb-6 w-full sm:max-w-[500px] sm:mx-auto md:max-w-[550px]">
+    <div className="flex flex-col w-full text-left">
       <h3 className="font-semibold text-[#0D1B2A] mb-3 text-lg">{title}</h3>
-      <div className="space-y-2">
+      <div className="flex flex-col gap-4 space-y-2">
         {options.map((opt, i) => (
           <label key={i} className="flex items-start space-x-3 cursor-pointer group py-2 pr-2 rounded hover:bg-gray-50 transition-colors">
             <motion.div whileTap={{ scale: 1.05 }} transition={{ duration: 0.18, ease: "easeOut" }} className="flex items-center h-6">
@@ -94,29 +94,28 @@ export default function Step5_Vendors() {
 
   return (
     <StepTransition stepKey="step8">
-      <StepContainer>
-      <div className="mb-8 sm:mb-10 text-center">
+      <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Vendors & Creative</h2>
-        <p className="bd-helper-text mt-2 text-center text-lg">Would you like help booking or coordinating additional services?</p>
-      </div>
-      <div className="w-full flex flex-col items-center">
+        <p className="bd-helper-text text-lg">Would you like help booking or coordinating additional services?</p>
+        <div className="space-y-6 w-full">
         <ManualCheckboxList title="Event Vendors:" options={VENDORS} />
 {softWarnings.additionalVendors && <p className="bd-warning-text">{softWarnings.additionalVendors}</p>}
         <motion.div className="bd-divider" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.12 }}></motion.div>
         <ManualCheckboxList title="Creative & Digital Services:" options={CREATIVE} />
         <motion.div className="bd-divider" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.12 }}></motion.div>
-        <div className="mb-6 w-full sm:max-w-[500px] sm:mx-auto md:max-w-[550px]">
+        <div className="flex flex-col w-full text-left">
           <h3 className="font-semibold text-[#0D1B2A] mb-3 text-lg">None:</h3>
-          <label className="flex items-start space-x-3 cursor-pointer py-2 pr-2 rounded hover:bg-gray-50 transition-colors">
+          <div className="flex flex-col gap-4 space-y-2">
+            <label className="flex items-start space-x-3 cursor-pointer py-2 pr-2 rounded hover:bg-gray-50 transition-colors">
             <motion.div whileTap={{ scale: 1.05 }} transition={{ duration: 0.18, ease: "easeOut" }} className="flex items-center h-6">
               <input type="checkbox" checked={additionalVendors.includes('I do not need additional services')} onChange={() => handleCheck('I do not need additional services')} className="w-5 h-5 accent-[#E8A6B8] cursor-pointer" />
             </motion.div>
-            <span className="text-[#0D1B2A] text-base sm:text-lg">I do not need additional services</span>
-          </label>
+            </label>
+          </div>
         </div>
         
         {showNotes && (
-          <div className="w-full animate-fade-in mt-4 flex flex-col items-center">
+          <div className="w-full animate-fade-in mt-4 flex flex-col w-full text-left">
             <div>
       <FormField
               label="Any preferences or details you’d like us to know?"
@@ -131,9 +130,9 @@ export default function Step5_Vendors() {
           </div>
         )}
       </div>
-      <NavigationButtons onBack={() => navigate('/step4')} onNext={handleNext} />
-    <ContactFooter />
-      </StepContainer>
+      <NavigationButtons onBack={() => navigate('/step4')} onNext={handleNext} className="mt-10" />
+      <ContactFooter className="mt-10 mb-6" />
+      </div>
     </StepTransition>
   );
 }

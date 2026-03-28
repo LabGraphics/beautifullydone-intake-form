@@ -59,12 +59,10 @@ export default function Step1_EventDetails() {
 
   return (
     <StepTransition stepKey="step1">
-      <StepContainer>
-      <div className="mb-8 sm:mb-10 text-center">
+      <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Event Details</h2>
-        <p className="bd-helper-text mt-2 text-center text-lg">Please provide the basic details for your event.</p>
-      </div>
-      <div className="space-y-4 sm:space-y-5 w-full flex flex-col items-center">
+        <p className="bd-helper-text text-lg">Please provide the basic details for your event.</p>
+        <div className="space-y-6 w-full">
         <div>
       <FormField 
           label="Event Name" 
@@ -111,9 +109,9 @@ export default function Step1_EventDetails() {
       {softWarnings.guestCount && <p className="bd-warning-text">{softWarnings.guestCount}</p>}
     </div>
       </div>
-      <NavigationButtons showBack={false} onNext={handleNext} />
-    <ContactFooter />
-      </StepContainer>
+      <NavigationButtons showBack={false} onNext={handleNext} className="mt-10" />
+      <ContactFooter className="mt-10 mb-6" />
+      </div>
     </StepTransition>
   );
 }

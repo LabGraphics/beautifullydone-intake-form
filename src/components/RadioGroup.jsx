@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 
 export default function RadioGroup({ label, options, selectedValue, onChange, error }) {
   return (
-    <div className="flex flex-col space-y-3 mb-6 w-full sm:max-w-[500px] sm:mx-auto md:max-w-[550px]">
+    <div className="flex flex-col w-full text-left">
       {label && <label className="bd-label">{label}</label>}
-      <div className="flex flex-col sm:flex-row sm:space-x-6 space-y-2 sm:space-y-0">
+      <div className="flex flex-col gap-4 space-y-2">
         {options.map((opt, i) => (
           <label key={i} className="flex items-center space-x-3 cursor-pointer py-2 pr-2 rounded hover:bg-gray-50 transition-colors">
             <input

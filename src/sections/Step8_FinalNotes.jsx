@@ -52,12 +52,10 @@ export default function Step8_FinalNotes() {
 
   return (
     <StepTransition stepKey="step11">
-      <StepContainer>
-      <div className="mb-8 sm:mb-10 text-center">
+      <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Final Notes</h2>
-        <p className="bd-helper-text mt-2 text-center text-lg">Almost done! Any last details?</p>
-      </div>
-      <div className="space-y-4 w-full flex flex-col items-center">
+        <p className="bd-helper-text text-lg">Almost done! Any last details?</p>
+        <div className="space-y-6 w-full">
         <div>
       <FormField 
           label="Is there anything else you’d like us to know about your event?" 
@@ -70,9 +68,9 @@ export default function Step8_FinalNotes() {
       {softWarnings.finalNotes && <p className="bd-warning-text">{softWarnings.finalNotes}</p>}
     </div>
       </div>
-      <NavigationButtons onBack={() => navigate('/step7')} onNext={handleNext} nextLabel="Review & Submit" />
-    <ContactFooter />
-      </StepContainer>
+      <NavigationButtons onBack={() => navigate('/step7')} onNext={handleNext} nextLabel="Review & Submit" className="mt-10" />
+      <ContactFooter className="mt-10 mb-6" />
+      </div>
     </StepTransition>
   );
 }

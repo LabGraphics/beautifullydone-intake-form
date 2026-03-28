@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-export default function NavigationButtons({ onBack, onNext, showBack = true, nextLabel = 'Next', disableNext = false }) {
+export default function NavigationButtons({ onBack, onNext, showBack = true, nextLabel = 'Next', disableNext = false, className = "" }) {
   return (
-    <div className="flex flex-row items-center justify-between mt-10 mb-8 gap-4 sm:max-w-[500px] sm:mx-auto md:max-w-[550px] w-full">
+    <div className={`flex flex-row items-center justify-between gap-4 w-full ${className}`}>
       {showBack ? (
         <motion.button
           whileHover={{ scale: 1.02 }}

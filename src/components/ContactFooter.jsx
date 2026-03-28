@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function ContactFooter() {
+export default function ContactFooter({ className = "" }) {
   return (
-    <div className="bd-contact-footer">
+    <div className={`bd-contact-footer ${className}`}>
       <p className="font-semibold text-brand-navy">Beautifully Done Events</p>
       <p>
         <a href="https://www.beautifullyevents.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-blush-dark transition-colors duration-200">

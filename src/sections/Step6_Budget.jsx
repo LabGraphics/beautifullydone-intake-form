@@ -55,12 +55,10 @@ export default function Step6_Budget() {
 
   return (
     <StepTransition stepKey="step9">
-      <StepContainer>
-      <div className="mb-8 sm:mb-10 text-center">
+      <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Budget</h2>
-        <p className="bd-helper-text mt-2 text-center text-lg">Help us understand your preferred budget range.</p>
-      </div>
-      <div className="space-y-4 sm:space-y-5 w-full flex flex-col items-center">
+        <p className="bd-helper-text text-lg">Help us understand your preferred budget range.</p>
+        <div className="space-y-6 w-full">
         <div>
       <SelectField 
           label="What is your estimated budget?" 
@@ -84,9 +82,9 @@ export default function Step6_Budget() {
       {softWarnings.openToRecommendations && <p className="bd-warning-text">{softWarnings.openToRecommendations}</p>}
     </div>
       </div>
-      <NavigationButtons onBack={() => navigate('/step5')} onNext={handleNext} />
-    <ContactFooter />
-      </StepContainer>
+      <NavigationButtons onBack={() => navigate('/step5')} onNext={handleNext} className="mt-10" />
+      <ContactFooter className="mt-10 mb-6" />
+      </div>
     </StepTransition>
   );
 }
