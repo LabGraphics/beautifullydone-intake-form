@@ -80,7 +80,7 @@ export default function Step5_Vendors() {
       <h3 className="font-semibold text-[#0D1B2A] mb-3 text-lg">{title}</h3>
       <div className="space-y-2">
         {options.map((opt, i) => (
-          <label key={i} className="flex items-start space-x-3 cursor-pointer group p-2 rounded hover:bg-gray-50 transition-colors">
+          <label key={i} className="flex items-start space-x-3 cursor-pointer group py-2 pr-2 rounded hover:bg-gray-50 transition-colors">
             <motion.div whileTap={{ scale: 1.05 }} transition={{ duration: 0.18, ease: "easeOut" }} className="flex items-center h-6">
               <input type="checkbox" checked={additionalVendors.includes(opt)} onChange={() => handleCheck(opt)} className="w-5 h-5 accent-[#E8A6B8] cursor-pointer" />
             </motion.div>
@@ -106,7 +106,7 @@ export default function Step5_Vendors() {
         <motion.div className="bd-divider" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.12 }}></motion.div>
         <div className="mb-6 w-full sm:max-w-[500px] sm:mx-auto md:max-w-[550px]">
           <h3 className="font-semibold text-[#0D1B2A] mb-3 text-lg">None:</h3>
-          <label className="flex items-start space-x-3 cursor-pointer p-2 rounded hover:bg-gray-50 transition-colors">
+          <label className="flex items-start space-x-3 cursor-pointer py-2 pr-2 rounded hover:bg-gray-50 transition-colors">
             <motion.div whileTap={{ scale: 1.05 }} transition={{ duration: 0.18, ease: "easeOut" }} className="flex items-center h-6">
               <input type="checkbox" checked={additionalVendors.includes('I do not need additional services')} onChange={() => handleCheck('I do not need additional services')} className="w-5 h-5 accent-[#E8A6B8] cursor-pointer" />
             </motion.div>

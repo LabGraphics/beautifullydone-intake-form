@@ -15,7 +15,7 @@ export default function CheckboxGroup({ label, options, selectedValues, onChange
       {label && <label className="bd-label">{label}</label>}
       <div className="space-y-2">
         {options.map((opt, i) => (
-          <label key={i} className="flex items-start space-x-3 cursor-pointer group p-2 rounded hover:bg-gray-50 transition-colors">
+          <label key={i} className="flex items-start space-x-3 cursor-pointer group py-2 pr-2 rounded hover:bg-gray-50 transition-colors">
             <motion.div whileTap={{ scale: 1.05 }} transition={{ duration: 0.18, ease: "easeOut" }} className="flex items-center h-6">
               <input
                 type="checkbox"
@@ -23,7 +23,7 @@ export default function CheckboxGroup({ label, options, selectedValues, onChange
                 onChange={() => toggleOption(opt)}
                 className="w-5 h-5 accent-[#E8A6B8] cursor-pointer"
               />
-            </div>
+            </motion.div>
             <div className="flex flex-col">
               <span className="text-[#0D1B2A] text-base sm:text-lg select-none">{opt}</span>
             </div>

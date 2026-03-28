@@ -8,7 +8,7 @@ export default function FormField({ label, type = 'text', value, onChange, place
     <div className="flex flex-col mb-6 w-full sm:max-w-[500px] sm:mx-auto md:max-w-[550px]">
       {label && <label className="bd-label">{label}</label>}
       {isTextArea ? (
-        <motion.textarea whileFocus={{ scale: 1.01 }} transition={{ duration: 0.15, ease: "easeOut" }} value={value} onChange={onChange} placeholder={placeholder} className={`${baseClasses} min-h-[120px] resize-y`} />
+        <motion.textarea whileFocus={{ scale: 1.01 }} transition={{ duration: 0.15, ease: "easeOut" }} value={value} onChange={onChange} placeholder={placeholder} className={`${baseClasses} min-h-[140px] resize-y`} />
       ) : (
         <motion.input whileFocus={{ scale: 1.01 }} transition={{ duration: 0.15, ease: "easeOut" }} type={type} value={value} onChange={onChange} placeholder={placeholder} className={baseClasses} />
       )}

@@ -57,7 +57,7 @@ export default function Step6_Budget() {
       <StepContainer>
       <div className="mb-8 sm:mb-10 text-center">
         <h2>Budget</h2>
-        <p className="bd-helper-text mt-2 text-center text-lg">Help us understand your preferred investment.</p>
+        <p className="bd-helper-text mt-2 text-center text-lg">Help us understand your preferred budget range.</p>
       </div>
       <div className="space-y-4 sm:space-y-5 w-full flex flex-col items-center">
         <div>

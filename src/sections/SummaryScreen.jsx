@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useFormStore } from '../store/formStore';
 import StepContainer from '../components/StepContainer';
-import { generatePDF } from '../utils/generatePDF';
 import { sendEmail } from '../utils/sendEmail';
 import { writeToDatastore } from '../utils/writeToDatastore';
 
@@ -12,10 +11,6 @@ export default function SummaryScreen() {
   const navigate = useNavigate();
   const formData = useFormStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleDownloadPDF = () => {
-    generatePDF(formData);
-  };
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -97,17 +92,11 @@ export default function SummaryScreen() {
         <SummaryItem label="Preferred Contact" value={formData.preferredContact} />
         <SummaryItem label="Final Notes" value={formData.finalNotes} />
       </motion.div>
-      <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch w-full sm:max-w-[500px] md:max-w-[550px] mx-auto">
-        <button
-          onClick={handleDownloadPDF}
-          className="w-full sm:w-auto flex-1 px-6 md:px-8 py-3 font-medium text-[#E8A6B8] bg-transparent border-2 border-[#E8A6B8] rounded-lg hover:bg-[#E8A6B8] hover:text-[#0D1B2A] transition-all duration-300"
-        >
-          Download PDF
-        </button>
+      <div className="flex justify-center w-full mt-8 sm:max-w-[500px] md:max-w-[550px] mx-auto">
         <button
           onClick={handleSubmit}
           disabled={isSubmitting}
-          className="w-full sm:w-auto flex-1 px-6 md:px-8 py-3 font-semibold text-[#0D1B2A] bg-[#E8A6B8] rounded-lg hover:scale-105 shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+          className="w-full px-6 md:px-8 py-3.5 font-sans font-semibold text-brand-navy bg-brand-blush-dark rounded-lg shadow-md hover:shadow-lg transition-transform duration-300 transform hover:scale-102 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {isSubmitting ? 'Submitting...' : 'Submit and Send'}
         </button>

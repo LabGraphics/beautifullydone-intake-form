@@ -7,7 +7,7 @@ export default function RadioGroup({ label, options, selectedValue, onChange, er
       {label && <label className="bd-label">{label}</label>}
       <div className="flex flex-col sm:flex-row sm:space-x-6 space-y-2 sm:space-y-0">
         {options.map((opt, i) => (
-          <label key={i} className="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-gray-50 transition-colors">
+          <label key={i} className="flex items-center space-x-3 cursor-pointer py-2 pr-2 rounded hover:bg-gray-50 transition-colors">
             <input
               type="radio"
               checked={selectedValue === opt}
