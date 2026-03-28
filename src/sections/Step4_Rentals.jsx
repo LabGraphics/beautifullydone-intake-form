@@ -1,30 +1,52 @@
 import React, { useState } from 'react';
+import StepTransition from '../components/StepTransition';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import StepContainer from '../components/StepContainer';
 import RadioGroup from '../components/RadioGroup';
 import CheckboxGroup from '../components/CheckboxGroup';
 import NavigationButtons from '../components/NavigationButtons';
-import useIntakeStore from '../data/useIntakeStore';
-import { isRequired } from '../components/ValidationHelpers';
+import { useFormStore } from '../store/formStore';
+import { validateStep4 } from '../utils/validation';
 
 export default function Step4_Rentals() {
   const navigate = useNavigate();
-  const { needsRentals, rentalsList, updateField } = useIntakeStore();
+  const { needsRentals, rentalsList, updateField } = useFormStore();
   const [errors, setErrors] = useState({});
+  const [softWarnings, setSoftWarnings] = useState({});
+  const [softBlockShown, setSoftBlockShown] = useState(false);
+
+  
+
+  const handleChange = (field, value) => {
+    updateField(field, value);
+    setErrors(prev => ({ ...prev, [field]: undefined }));
+    setSoftWarnings(prev => ({ ...prev, [field]: undefined }));
+  };
 
   const handleNext = () => {
-    const newErrors = {};
-    if (!isRequired(needsRentals)) {
-      newErrors.needsRentals = 'Please indicate if you need rentals';
-    } else if (needsRentals === 'Yes' && rentalsList.length === 0) {
-      newErrors.rentalsList = 'Please select at least one rental item';
-    }
+    const formData = useFormStore.getState();
+    const { isValid, errors: reqErrors, softWarnings: reqSoft } = validateStep4(formData);
     
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    if (!isValid || Object.keys(reqErrors).length > 0) {
+      setErrors(reqErrors);
+      setTimeout(() => {
+        const errorEl = document.querySelector('.bd-error-text');
+        if (errorEl) errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
       return;
     }
-    setErrors({});
+
+    if (Object.keys(reqSoft).length > 0 && !softBlockShown) {
+      setSoftWarnings(reqSoft);
+      setSoftBlockShown(true);
+      setTimeout(() => {
+        const softEl = document.querySelector('.bd-warning-text');
+        if (softEl) softEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
+      return;
+    }
+
     navigate('/step5');
   };
 
@@ -36,35 +58,44 @@ export default function Step4_Rentals() {
   ];
 
   return (
-    <StepContainer>
-      <div className="mb-8 text-center">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-[#0D1B2A]">Rentals</h2>
-        <p className="mt-2 text-gray-500 text-lg sm:text-xl">Do you need rentals for your event?</p>
+    <StepTransition stepKey="step5">
+      <StepContainer>
+      <div className="mb-8 sm:mb-10 text-center">
+        <h2>Rentals</h2>
+        <p className="bd-helper-text mt-2 text-center text-lg">Do you need rentals for your event?</p>
       </div>
       <div className="space-y-4 sm:space-y-5 w-full flex flex-col items-center">
-        <RadioGroup
+        <div>
+      <RadioGroup
           options={['Yes', 'No']}
           selectedValue={needsRentals}
           onChange={(val) => {
-            updateField('needsRentals', val);
-            if (val === 'No') updateField('rentalsList', []);
+            handleChange('needsRentals', val); if (val === 'No') handleChange('rentalsList', []);
           }}
-          error={errors.needsRentals}
+          
         />
+      {errors.needsRentals && <p className="bd-error-text">{errors.needsRentals}</p>}
+      {softWarnings.needsRentals && <p className="bd-warning-text">{softWarnings.needsRentals}</p>}
+    </div>
         {needsRentals === 'Yes' && (
           <div className="w-full animate-fade-in">
-            <div className="bd-section-divider"></div>
+            <motion.div className="bd-divider" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.12 }}></motion.div>
             <label className="font-medium text-[#0D1B2A] text-base sm:text-lg mb-3 block sm:max-w-[500px] sm:mx-auto md:max-w-[550px]">Select all that apply:</label>
-            <CheckboxGroup
+            <div>
+      <CheckboxGroup
               options={RENTALS}
               selectedValues={rentalsList}
-              onChange={(vals) => updateField('rentalsList', vals)}
-              error={errors.rentalsList}
+              onChange={(vals) => handleChange('rentalsList', vals)}
+              
             />
+      {errors.rentalsList && <p className="bd-error-text">{errors.rentalsList}</p>}
+      {softWarnings.rentalsList && <p className="bd-warning-text">{softWarnings.rentalsList}</p>}
+    </div>
           </div>
         )}
       </div>
       <NavigationButtons onBack={() => navigate('/step3')} onNext={handleNext} />
     </StepContainer>
+    </StepTransition>
   );
 }

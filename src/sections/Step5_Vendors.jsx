@@ -1,15 +1,51 @@
 import React from 'react';
+import StepTransition from '../components/StepTransition';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import StepContainer from '../components/StepContainer';
 import FormField from '../components/FormField';
 import NavigationButtons from '../components/NavigationButtons';
-import useIntakeStore from '../data/useIntakeStore';
+import { useFormStore } from '../store/formStore';
+import { validateStep5 } from '../utils/validation';
 
 export default function Step5_Vendors() {
   const navigate = useNavigate();
-  const { additionalVendors, vendorPreferences, updateField } = useIntakeStore();
+  const { additionalVendors, vendorPreferences, updateField } = useFormStore(); 
+  const [errors, setErrors] = useState({});
+  const [softWarnings, setSoftWarnings] = useState({});
+  const [softBlockShown, setSoftBlockShown] = useState(false);
+
+  
+
+  const handleChange = (field, value) => {
+    updateField(field, value);
+    setErrors(prev => ({ ...prev, [field]: undefined }));
+    setSoftWarnings(prev => ({ ...prev, [field]: undefined }));
+  };
 
   const handleNext = () => {
+    const formData = useFormStore.getState();
+    const { isValid, errors: reqErrors, softWarnings: reqSoft } = validateStep5(formData);
+    
+    if (!isValid || Object.keys(reqErrors).length > 0) {
+      setErrors(reqErrors);
+      setTimeout(() => {
+        const errorEl = document.querySelector('.bd-error-text');
+        if (errorEl) errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
+      return;
+    }
+
+    if (Object.keys(reqSoft).length > 0 && !softBlockShown) {
+      setSoftWarnings(reqSoft);
+      setSoftBlockShown(true);
+      setTimeout(() => {
+        const softEl = document.querySelector('.bd-warning-text');
+        if (softEl) softEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
+      return;
+    }
+
     navigate('/step6');
   };
 
@@ -25,7 +61,7 @@ export default function Step5_Vendors() {
 
   const handleCheck = (val) => {
     if (val === 'I do not need additional services') {
-      updateField('additionalVendors', ['I do not need additional services']);
+      handleChange('additionalVendors', ['I do not need additional services']);
       return;
     }
     let current = additionalVendors.includes('I do not need additional services') ? [] : [...additionalVendors];
@@ -34,7 +70,7 @@ export default function Step5_Vendors() {
     } else {
       current.push(val);
     }
-    updateField('additionalVendors', current);
+    handleChange('additionalVendors', current);
   };
 
   const showNotes = additionalVendors.length > 0 && !additionalVendors.includes('I do not need additional services');
@@ -45,9 +81,9 @@ export default function Step5_Vendors() {
       <div className="space-y-2">
         {options.map((opt, i) => (
           <label key={i} className="flex items-start space-x-3 cursor-pointer group p-2 rounded hover:bg-gray-50 transition-colors">
-            <div className="flex items-center h-6">
+            <motion.div whileTap={{ scale: 1.05 }} transition={{ duration: 0.18, ease: "easeOut" }} className="flex items-center h-6">
               <input type="checkbox" checked={additionalVendors.includes(opt)} onChange={() => handleCheck(opt)} className="w-5 h-5 accent-[#E8A6B8] cursor-pointer" />
-            </div>
+            </motion.div>
             <span className="text-[#0D1B2A] text-base sm:text-lg">{opt}</span>
           </label>
         ))}
@@ -56,39 +92,46 @@ export default function Step5_Vendors() {
   );
 
   return (
-    <StepContainer>
-      <div className="mb-8 text-center">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-[#0D1B2A]">Vendors & Creative</h2>
-        <p className="mt-2 text-gray-500 text-lg sm:text-xl">Would you like help booking or coordinating additional services?</p>
+    <StepTransition stepKey="step8">
+      <StepContainer>
+      <div className="mb-8 sm:mb-10 text-center">
+        <h2>Vendors & Creative</h2>
+        <p className="bd-helper-text mt-2 text-center text-lg">Would you like help booking or coordinating additional services?</p>
       </div>
       <div className="w-full flex flex-col items-center">
         <ManualCheckboxList title="Event Vendors:" options={VENDORS} />
-        <div className="bd-section-divider"></div>
+{softWarnings.additionalVendors && <p className="bd-warning-text">{softWarnings.additionalVendors}</p>}
+        <motion.div className="bd-divider" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.12 }}></motion.div>
         <ManualCheckboxList title="Creative & Digital Services:" options={CREATIVE} />
-        <div className="bd-section-divider"></div>
+        <motion.div className="bd-divider" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.12 }}></motion.div>
         <div className="mb-6 w-full sm:max-w-[500px] sm:mx-auto md:max-w-[550px]">
           <h3 className="font-semibold text-[#0D1B2A] mb-3 text-lg">None:</h3>
           <label className="flex items-start space-x-3 cursor-pointer p-2 rounded hover:bg-gray-50 transition-colors">
-            <div className="flex items-center h-6">
+            <motion.div whileTap={{ scale: 1.05 }} transition={{ duration: 0.18, ease: "easeOut" }} className="flex items-center h-6">
               <input type="checkbox" checked={additionalVendors.includes('I do not need additional services')} onChange={() => handleCheck('I do not need additional services')} className="w-5 h-5 accent-[#E8A6B8] cursor-pointer" />
-            </div>
+            </motion.div>
             <span className="text-[#0D1B2A] text-base sm:text-lg">I do not need additional services</span>
           </label>
         </div>
         
         {showNotes && (
           <div className="w-full animate-fade-in mt-4 flex flex-col items-center">
-            <FormField
+            <div>
+      <FormField
               label="Any preferences or details you’d like us to know?"
               isTextArea
               value={vendorPreferences}
-              onChange={(e) => updateField('vendorPreferences', e.target.value)}
+              onChange={(e) => handleChange('vendorPreferences', e.target.value)}
               placeholder="e.g. Budget limitations, style preferences..."
             />
+      {errors.vendorPreferences && <p className="bd-error-text">{errors.vendorPreferences}</p>}
+      {softWarnings.vendorPreferences && <p className="bd-warning-text">{softWarnings.vendorPreferences}</p>}
+    </div>
           </div>
         )}
       </div>
       <NavigationButtons onBack={() => navigate('/step4')} onNext={handleNext} />
     </StepContainer>
+    </StepTransition>
   );
 }

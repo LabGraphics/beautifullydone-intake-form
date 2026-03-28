@@ -1,34 +1,76 @@
 import React from 'react';
+import StepTransition from '../components/StepTransition';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import StepContainer from '../components/StepContainer';
 import FormField from '../components/FormField';
 import NavigationButtons from '../components/NavigationButtons';
-import useIntakeStore from '../data/useIntakeStore';
+import { useFormStore } from '../store/formStore';
+import { validateStep8 } from '../utils/validation';
 
 export default function Step8_FinalNotes() {
   const navigate = useNavigate();
-  const { finalNotes, updateField } = useIntakeStore();
+  const { finalNotes, updateField } = useFormStore(); 
+  const [errors, setErrors] = useState({});
+  const [softWarnings, setSoftWarnings] = useState({});
+  const [softBlockShown, setSoftBlockShown] = useState(false);
+
+  
+
+  const handleChange = (field, value) => {
+    updateField(field, value);
+    setErrors(prev => ({ ...prev, [field]: undefined }));
+    setSoftWarnings(prev => ({ ...prev, [field]: undefined }));
+  };
 
   const handleNext = () => {
+    const formData = useFormStore.getState();
+    const { isValid, errors: reqErrors, softWarnings: reqSoft } = validateStep8(formData);
+    
+    if (!isValid || Object.keys(reqErrors).length > 0) {
+      setErrors(reqErrors);
+      setTimeout(() => {
+        const errorEl = document.querySelector('.bd-error-text');
+        if (errorEl) errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
+      return;
+    }
+
+    if (Object.keys(reqSoft).length > 0 && !softBlockShown) {
+      setSoftWarnings(reqSoft);
+      setSoftBlockShown(true);
+      setTimeout(() => {
+        const softEl = document.querySelector('.bd-warning-text');
+        if (softEl) softEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
+      return;
+    }
+
     navigate('/summary');
   };
 
   return (
-    <StepContainer>
-      <div className="mb-8 text-center">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-[#0D1B2A]">Final Notes</h2>
-        <p className="mt-2 text-gray-500 text-lg sm:text-xl">Almost done! Any last details?</p>
+    <StepTransition stepKey="step11">
+      <StepContainer>
+      <div className="mb-8 sm:mb-10 text-center">
+        <h2>Final Notes</h2>
+        <p className="bd-helper-text mt-2 text-center text-lg">Almost done! Any last details?</p>
       </div>
       <div className="space-y-4 w-full flex flex-col items-center">
-        <FormField 
+        <div>
+      <FormField 
           label="Is there anything else you’d like us to know about your event?" 
           isTextArea 
           value={finalNotes} 
-          onChange={(e) => updateField('finalNotes', e.target.value)} 
+          onChange={(e) => handleChange('finalNotes', e.target.value)} 
           placeholder="Special requests, themes, accessibility needs..." 
         />
+      {errors.finalNotes && <p className="bd-error-text">{errors.finalNotes}</p>}
+      {softWarnings.finalNotes && <p className="bd-warning-text">{softWarnings.finalNotes}</p>}
+    </div>
       </div>
       <NavigationButtons onBack={() => navigate('/step7')} onNext={handleNext} nextLabel="Review & Submit" />
     </StepContainer>
+    </StepTransition>
   );
 }

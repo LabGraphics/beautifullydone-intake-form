@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 export default function CheckboxGroup({ label, options, selectedValues, onChange, error }) {
   const toggleOption = (option) => {
@@ -11,11 +12,11 @@ export default function CheckboxGroup({ label, options, selectedValues, onChange
 
   return (
     <div className="flex flex-col space-y-3 mb-6 w-full sm:max-w-[500px] sm:mx-auto md:max-w-[550px]">
-      {label && <label className="font-medium text-[#0D1B2A] text-base sm:text-lg">{label}</label>}
+      {label && <label className="bd-label">{label}</label>}
       <div className="space-y-2">
         {options.map((opt, i) => (
           <label key={i} className="flex items-start space-x-3 cursor-pointer group p-2 rounded hover:bg-gray-50 transition-colors">
-            <div className="flex items-center h-6">
+            <motion.div whileTap={{ scale: 1.05 }} transition={{ duration: 0.18, ease: "easeOut" }} className="flex items-center h-6">
               <input
                 type="checkbox"
                 checked={selectedValues.includes(opt)}

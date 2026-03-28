@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-const useIntakeStore = create((set) => ({
+export const useFormStore = create((set) => ({
   eventName: '', eventType: '', eventDate: '', guestCount: '',
   locationType: '', indoorsOutdoors: '', locationName: '', fullAddress: '', startTime: '', endTime: '',
   servicesNeeded: [],
@@ -22,4 +22,4 @@ const useIntakeStore = create((set) => ({
   })
 }));
 
-export default useIntakeStore;
+

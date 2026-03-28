@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import StepTransition from '../components/StepTransition';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import StepContainer from '../components/StepContainer';
 import FormField from '../components/FormField';
 import NavigationButtons from '../components/NavigationButtons';
-import useIntakeStore from '../data/useIntakeStore';
+import { useFormStore } from '../store/formStore';
 import { isRequired, isNumber } from '../components/ValidationHelpers';
 
 export default function Step3_GuestCount() {
   const navigate = useNavigate();
-  const { guestCount, updateField } = useIntakeStore();
+  const { guestCount, updateField } = useFormStore();
   const [errors, setErrors] = useState({});
 
   const handleNext = () => {
@@ -28,10 +30,11 @@ export default function Step3_GuestCount() {
   };
 
   return (
-    <StepContainer>
-      <div className="mb-8 text-center">
+    <StepTransition stepKey="step3">
+      <StepContainer>
+      <div className="mb-8 sm:mb-10 text-center">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-[#0A1A2F]">Guest Count</h2>
-        <p className="mt-2 text-gray-500 text-lg sm:text-xl">How many guests represent your expected size?</p>
+        <p className="bd-helper-text mt-2 text-center text-lg">How many guests represent your expected size?</p>
       </div>
       <div className="space-y-4 sm:space-y-5 md:space-y-6 w-full flex flex-col items-center">
         <FormField 
@@ -45,5 +48,6 @@ export default function Step3_GuestCount() {
       </div>
       <NavigationButtons onBack={() => navigate('/step2')} onNext={handleNext} />
     </StepContainer>
+    </StepTransition>
   );
 }

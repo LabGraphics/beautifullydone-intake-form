@@ -1,55 +1,90 @@
 import React, { useState } from 'react';
+import StepTransition from '../components/StepTransition';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import StepContainer from '../components/StepContainer';
 import SelectField from '../components/SelectField';
 import RadioGroup from '../components/RadioGroup';
 import NavigationButtons from '../components/NavigationButtons';
-import useIntakeStore from '../data/useIntakeStore';
-import { isRequired } from '../components/ValidationHelpers';
+import { useFormStore } from '../store/formStore';
+import { validateStep6 } from '../utils/validation';
 
 export default function Step6_Budget() {
   const navigate = useNavigate();
-  const { budget, openToRecommendations, updateField } = useIntakeStore();
+  const { budget, openToRecommendations, updateField } = useFormStore();
   const [errors, setErrors] = useState({});
+  const [softWarnings, setSoftWarnings] = useState({});
+  const [softBlockShown, setSoftBlockShown] = useState(false);
+
+  
+
+  const handleChange = (field, value) => {
+    updateField(field, value);
+    setErrors(prev => ({ ...prev, [field]: undefined }));
+    setSoftWarnings(prev => ({ ...prev, [field]: undefined }));
+  };
 
   const handleNext = () => {
-    const newErrors = {};
-    if (!isRequired(budget)) newErrors.budget = 'Budget is required';
-    if (!isRequired(openToRecommendations)) newErrors.openToRecommendations = 'Please select Yes or No';
+    const formData = useFormStore.getState();
+    const { isValid, errors: reqErrors, softWarnings: reqSoft } = validateStep6(formData);
     
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    if (!isValid || Object.keys(reqErrors).length > 0) {
+      setErrors(reqErrors);
+      setTimeout(() => {
+        const errorEl = document.querySelector('.bd-error-text');
+        if (errorEl) errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
       return;
     }
-    setErrors({});
+
+    if (Object.keys(reqSoft).length > 0 && !softBlockShown) {
+      setSoftWarnings(reqSoft);
+      setSoftBlockShown(true);
+      setTimeout(() => {
+        const softEl = document.querySelector('.bd-warning-text');
+        if (softEl) softEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
+      return;
+    }
+
     navigate('/step7');
   };
 
   const BUDGETS = ['Under $500', '$500–$1,000', '$1,000–$2,000', '$2,000–$3,500', '$3,500–$5,000', '$5,000+'];
 
   return (
-    <StepContainer>
-      <div className="mb-8 text-center">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-[#0D1B2A]">Budget</h2>
-        <p className="mt-2 text-gray-500 text-lg sm:text-xl">Help us understand your preferred investment.</p>
+    <StepTransition stepKey="step9">
+      <StepContainer>
+      <div className="mb-8 sm:mb-10 text-center">
+        <h2>Budget</h2>
+        <p className="bd-helper-text mt-2 text-center text-lg">Help us understand your preferred investment.</p>
       </div>
       <div className="space-y-4 sm:space-y-5 w-full flex flex-col items-center">
-        <SelectField 
+        <div>
+      <SelectField 
           label="What is your estimated budget?" 
           value={budget} 
-          onChange={(e) => updateField('budget', e.target.value)} 
+          onChange={(e) => handleChange('budget', e.target.value)} 
           options={BUDGETS} 
-          error={errors.budget} 
+           
         />
-        <RadioGroup 
+      {errors.budget && <p className="bd-error-text">{errors.budget}</p>}
+      {softWarnings.budget && <p className="bd-warning-text">{softWarnings.budget}</p>}
+    </div>
+        <div>
+      <RadioGroup 
           label="Are you open to recommendations that fit your budget?" 
           options={['Yes', 'No']} 
           selectedValue={openToRecommendations} 
-          onChange={(val) => updateField('openToRecommendations', val)} 
-          error={errors.openToRecommendations} 
+          onChange={(val) => handleChange('openToRecommendations', val)} 
+           
         />
+      {errors.openToRecommendations && <p className="bd-error-text">{errors.openToRecommendations}</p>}
+      {softWarnings.openToRecommendations && <p className="bd-warning-text">{softWarnings.openToRecommendations}</p>}
+    </div>
       </div>
       <NavigationButtons onBack={() => navigate('/step5')} onNext={handleNext} />
     </StepContainer>
+    </StepTransition>
   );
 }

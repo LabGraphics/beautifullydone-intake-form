@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import StepTransition from '../components/StepTransition';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import useIntakeStore from '../data/useIntakeStore';
+import { useFormStore } from '../store/formStore';
 import StepContainer from '../components/StepContainer';
 import { generatePDF } from '../utils/generatePDF';
 import { sendEmail } from '../utils/sendEmail';
@@ -8,7 +10,7 @@ import { writeToDatastore } from '../utils/writeToDatastore';
 
 export default function SummaryScreen() {
   const navigate = useNavigate();
-  const formData = useIntakeStore();
+  const formData = useFormStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleDownloadPDF = () => {
@@ -36,7 +38,17 @@ export default function SummaryScreen() {
       displayValue = value.length > 0 ? value.join(', ') : 'None';
     }
     
-    return (
+    
+  const containerVar = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.06, ease: "easeOut" } }
+  };
+  const itemVar = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  return (
       <div className="flex flex-col sm:flex-row sm:justify-between py-4 border-b border-gray-100 last:border-0 gap-2 w-full">
         <span className="font-semibold text-[#0D1B2A] sm:w-1/3 shrink-0 text-base sm:text-lg">{label}</span>
         <span className="text-gray-700 whitespace-pre-wrap sm:text-right text-base sm:text-lg w-full">{displayValue}</span>
@@ -45,13 +57,15 @@ export default function SummaryScreen() {
   };
 
   return (
-    <StepContainer>
+    <StepTransition stepKey="summary">
+      <StepContainer>
+        <motion.div variants={containerVar} initial="hidden" animate="visible" className="w-full flex flex-col items-center">
       <div className="mb-8 text-center sm:max-w-[550px] sm:mx-auto">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-[#0D1B2A]">Review Your Details</h2>
+        <h2>Review Your Details</h2>
         <p className="mt-2 text-gray-500 text-lg sm:text-xl">Please review the details below before submitting.</p>
       </div>
       
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 sm:p-6 mb-8 max-w-[500px] md:max-w-[550px] mx-auto w-full">
+      <motion.div variants={itemVar} className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 sm:p-6 mb-8 max-w-[500px] md:max-w-[550px] mx-auto w-full">
         <h3 className="font-semibold text-lg text-[#0D1B2A] border-b pb-2 mb-2">Event Details</h3>
         <SummaryItem label="Event Name" value={formData.eventName} />
         <SummaryItem label="Event Type" value={formData.eventType} />
@@ -82,8 +96,7 @@ export default function SummaryScreen() {
         <SummaryItem label="Phone Number" value={formData.phoneNumber} />
         <SummaryItem label="Preferred Contact" value={formData.preferredContact} />
         <SummaryItem label="Final Notes" value={formData.finalNotes} />
-      </div>
-
+      </motion.div>
       <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch w-full sm:max-w-[500px] md:max-w-[550px] mx-auto">
         <button
           onClick={handleDownloadPDF}
@@ -107,6 +120,8 @@ export default function SummaryScreen() {
           Back to Edit Notes
         </button>
       </div>
-    </StepContainer>
+            </motion.div>
+      </StepContainer>
+    </StepTransition>
   );
 }

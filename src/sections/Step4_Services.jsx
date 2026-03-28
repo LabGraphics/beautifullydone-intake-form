@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import StepTransition from '../components/StepTransition';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import StepContainer from '../components/StepContainer';
 import NavigationButtons from '../components/NavigationButtons';
-import useIntakeStore from '../data/useIntakeStore';
+import { useFormStore } from '../store/formStore';
 import { isRequired } from '../components/ValidationHelpers';
 
 export default function Step4_Services() {
   const navigate = useNavigate();
-  const { services, updateField } = useIntakeStore();
+  const { services, updateField } = useFormStore();
   const [errors, setErrors] = useState({});
 
   const handleNext = () => {
@@ -20,10 +22,11 @@ export default function Step4_Services() {
   };
 
   return (
-    <StepContainer>
-      <div className="mb-8 text-center">
+    <StepTransition stepKey="step6">
+      <StepContainer>
+      <div className="mb-8 sm:mb-10 text-center">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-[#0A1A2F]">Services Needed</h2>
-        <p className="mt-2 text-gray-500 text-lg sm:text-xl">Describe the services required for your event.</p>
+        <p className="bd-helper-text mt-2 text-center text-lg">Describe the services required for your event.</p>
       </div>
       <div className="space-y-4 sm:space-y-5 md:space-y-6 w-full flex flex-col items-center">
         <div className="flex flex-col space-y-2 mb-4 w-full sm:max-w-[500px] sm:mx-auto md:max-w-[550px]">
@@ -41,5 +44,6 @@ export default function Step4_Services() {
       </div>
       <NavigationButtons onBack={() => navigate('/step3')} onNext={handleNext} />
     </StepContainer>
+    </StepTransition>
   );
 }

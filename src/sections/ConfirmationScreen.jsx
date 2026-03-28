@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import StepContainer from '../components/StepContainer';
 
@@ -14,7 +15,7 @@ export default function ConfirmationScreen() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="mb-4 text-[#0D1B2A] text-2xl sm:text-3xl md:text-4xl font-serif font-bold">Thank You!</h2>
+          <h2>Thank You!</h2>
           <p className="mb-10 max-w-md mx-auto text-gray-600 text-lg sm:text-xl">
             Your event details have been successfully submitted. We've sent a confirmation email, and our team will be in touch with you shortly.
           </p>
@@ -28,6 +29,6 @@ export default function ConfirmationScreen() {
           </div>
         </div>
       </StepContainer>
-    </div>
+    </motion.div>
   );
 }

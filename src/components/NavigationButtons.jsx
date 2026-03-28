@@ -1,26 +1,31 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 export default function NavigationButtons({ onBack, onNext, showBack = true, nextLabel = 'Next' }) {
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between mt-8 space-y-4 space-y-reverse sm:space-y-0 gap-4 sm:max-w-[500px] sm:mx-auto md:max-w-[550px] w-full">
+    <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between my-8 space-y-4 space-y-reverse sm:space-y-0 gap-4 sm:max-w-[500px] sm:mx-auto md:max-w-[550px] w-full">
       {showBack ? (
-        <button
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.95 }}
           type="button"
           onClick={onBack}
-          className="w-full sm:w-auto px-6 md:px-8 py-3 font-medium text-[#E8A6B8] bg-transparent border-2 border-[#E8A6B8] rounded-lg hover:bg-[#E8A6B8] hover:text-[#0D1B2A] transition-all duration-300"
+          className="w-full sm:w-auto px-8 py-3.5 font-sans font-semibold text-brand-blush-dark bg-transparent border-2 border-brand-blush-dark rounded-lg hover:bg-brand-blush-dark hover:text-brand-navy transition-colors duration-300"
         >
           Back
-        </button>
+        </motion.button>
       ) : (
         <div className="hidden sm:block" /> 
       )}
-      <button
+      <motion.button
+        whileHover={{ scale: 1.02, backgroundColor: '#dca0b1' }}
+        whileTap={{ scale: 0.95 }}
         type="button"
         onClick={onNext}
-        className="w-full sm:w-auto px-6 md:px-8 py-3 font-semibold text-[#0D1B2A] bg-[#E8A6B8] rounded-lg hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg"
+        className="w-full sm:w-auto px-8 py-3.5 font-sans font-semibold text-brand-navy bg-brand-blush-dark rounded-lg shadow-md hover:shadow-lg transition-colors duration-300"
       >
         {nextLabel}
-      </button>
+      </motion.button>
     </div>
   );
 }
