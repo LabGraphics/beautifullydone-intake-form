@@ -31,6 +31,6 @@ export default function ConfirmationScreen() {
         </div>
       <ContactFooter />
       </StepContainer>
-    </motion.div>
+    </div>
   );
 }
