@@ -45,6 +45,9 @@
   .bd-divider {
     @apply w-full h-[1px] bg-brand-blush/50 my-10;
   }
+  .bd-section {
+    @apply w-full flex flex-col items-center;
+  }
   .bd-contact-footer {
     @apply text-center text-[14px] text-brand-navy/70 mt-10 mb-6 leading-relaxed;
   }

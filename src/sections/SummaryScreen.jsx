@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useFormStore } from '../store/formStore';
 import StepContainer from '../components/StepContainer';
+import NavigationButtons from '../components/NavigationButtons';
 import { sendEmail } from '../utils/sendEmail';
 import { writeToDatastore } from '../utils/writeToDatastore';
 
@@ -33,16 +34,6 @@ export default function SummaryScreen() {
     if (Array.isArray(value)) {
       displayValue = value.length > 0 ? value.join(', ') : 'None';
     }
-    
-    
-  const containerVar = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.06, ease: "easeOut" } }
-  };
-  const itemVar = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0 }
-  };
 
   return (
       <div className="flex flex-col sm:flex-row sm:justify-between py-4 border-b border-gray-100 last:border-0 gap-2 w-full">
@@ -55,13 +46,13 @@ export default function SummaryScreen() {
   return (
     <StepTransition stepKey="summary">
       <StepContainer>
-        <motion.div variants={containerVar} initial="hidden" animate="visible" className="w-full flex flex-col items-center">
+        <div className="bd-section">
       <div className="mb-8 text-center sm:max-w-[550px] sm:mx-auto">
         <h2>Review Your Details</h2>
         <p className="mt-2 text-gray-500 text-lg sm:text-xl">Please review the details below before submitting.</p>
       </div>
       
-      <motion.div variants={itemVar} className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 sm:p-6 mb-8 max-w-[500px] md:max-w-[550px] mx-auto w-full">
+      <div className="space-y-6 bg-white rounded-xl border border-gray-100 shadow-sm p-4 sm:p-6 mb-8 max-w-[500px] md:max-w-[550px] mx-auto w-full">
         <h3 className="font-semibold text-lg text-[#0D1B2A] border-b pb-2 mb-2">Event Details</h3>
         <SummaryItem label="Event Name" value={formData.eventName} />
         <SummaryItem label="Event Type" value={formData.eventType} />
@@ -92,26 +83,10 @@ export default function SummaryScreen() {
         <SummaryItem label="Phone Number" value={formData.phoneNumber} />
         <SummaryItem label="Preferred Contact" value={formData.preferredContact} />
         <SummaryItem label="Final Notes" value={formData.finalNotes} />
-      </motion.div>
-      <div className="flex justify-center w-full mt-8 sm:max-w-[500px] md:max-w-[550px] mx-auto">
-        <button
-          onClick={handleSubmit}
-          disabled={isSubmitting}
-          className="w-full px-6 md:px-8 py-3.5 font-sans font-semibold text-brand-navy bg-brand-blush-dark rounded-lg shadow-md hover:shadow-lg transition-transform duration-300 transform hover:scale-102 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
-        >
-          {isSubmitting ? 'Submitting...' : 'Submit and Send'}
-        </button>
       </div>
-      <div className="mt-8 text-center">
-        <button 
-          onClick={() => navigate('/step8')}
-          className="text-sm text-gray-400 underline hover:text-gray-700 transition-colors"
-        >
-          Back to Edit Notes
-        </button>
-      </div>
-            </motion.div>
+      <NavigationButtons onBack={() => navigate('/step8')} onNext={handleSubmit} nextLabel={isSubmitting ? 'Submitting...' : 'Submit and Send'} disableNext={isSubmitting} />
       <ContactFooter />
+      </div>
       </StepContainer>
     </StepTransition>
   );

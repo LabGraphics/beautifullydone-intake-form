@@ -9,20 +9,10 @@ export default function Summary() {
   const navigate = useNavigate();
   const formData = useFormStore((state) => state);
 
-  
-  const containerVar = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.06, ease: "easeOut" } }
-  };
-  const itemVar = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0 }
-  };
-
   return (
     <StepTransition stepKey="summary">
-      <motion.div className="summary-container" variants={containerVar} initial="hidden" animate="visible">
-      <h1>Review Your Event Details</h1>
+      <div className="bd-section">
+      <h2>Review Your Event Details</h2>
       <p>Please review and edit any section before submitting your information.</p>
 
       {/* 1. Event Details */}
@@ -138,7 +128,7 @@ export default function Summary() {
       <button className="submit-button" onClick={() => navigate('/confirmation')}>
         Submit My Event Details
       </button>
-    </motion.div>
+      </div>
     </StepTransition>
   );
 }
