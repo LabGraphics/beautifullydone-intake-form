@@ -1,5 +1,5 @@
+import React, { useState } from 'react';
 import ContactFooter from '../components/ContactFooter';
-import React from 'react';
 import StepTransition from '../components/StepTransition';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
