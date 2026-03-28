@@ -1,3 +1,4 @@
+import ContactFooter from '../components/ContactFooter';
 import React, { useState } from 'react';
 import StepTransition from '../components/StepTransition';
 import { motion } from 'framer-motion';
@@ -133,7 +134,8 @@ export default function Step2_Location() {
     </div>
       </div>
       <NavigationButtons onBack={() => navigate('/step1')} onNext={handleNext} />
-    </StepContainer>
+    <ContactFooter />
+      </StepContainer>
     </StepTransition>
   );
 }

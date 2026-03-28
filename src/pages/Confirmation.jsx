@@ -1,3 +1,4 @@
+import ContactFooter from '../components/ContactFooter';
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';

@@ -1,3 +1,4 @@
+import ContactFooter from '../components/ContactFooter';
 import React from 'react';
 import StepTransition from '../components/StepTransition';
 import { motion } from 'framer-motion';
@@ -70,7 +71,8 @@ export default function Step8_FinalNotes() {
     </div>
       </div>
       <NavigationButtons onBack={() => navigate('/step7')} onNext={handleNext} nextLabel="Review & Submit" />
-    </StepContainer>
+    <ContactFooter />
+      </StepContainer>
     </StepTransition>
   );
 }

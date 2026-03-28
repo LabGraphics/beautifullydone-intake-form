@@ -1,3 +1,4 @@
+import ContactFooter from '../components/ContactFooter';
 import React, { useState } from 'react';
 import StepTransition from '../components/StepTransition';
 import { motion } from 'framer-motion';
@@ -110,6 +111,7 @@ export default function SummaryScreen() {
         </button>
       </div>
             </motion.div>
+      <ContactFooter />
       </StepContainer>
     </StepTransition>
   );
