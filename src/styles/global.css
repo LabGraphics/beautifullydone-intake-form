@@ -156,3 +156,70 @@ h2, h3 {
     font-size: 0.9rem;
   }
 }
+
+/* BEAUTIFULLY DONE — PROGRESS INDICATOR */
+
+.bd-progress {
+  margin: 0 auto 1.5rem auto;
+  max-width: 600px;
+}
+
+.bd-progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.bd-progress-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1a2a42; /* Navy */
+  letter-spacing: 0.03em;
+}
+
+.bd-progress-track {
+  width: 100%;
+  height: 8px;
+  background: #f7e7e8; /* Blush */
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bd-progress-fill {
+  height: 100%;
+  background: #0D1B2A; /* Deep Navy */
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+/* BEAUTIFULLY DONE — SECTION DIVIDERS */
+
+.bd-section-divider {
+  height: 1px;
+  width: 100%;
+  max-width: 600px;
+  margin: 1.5rem auto;
+  background: #f7e7e8; /* Blush */
+}
+
+.bd-section-title {
+  max-width: 600px;
+  margin: 1.5rem auto 0.5rem auto;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a2a42; /* Navy */
+  letter-spacing: 0.03em;
+}
+
+/* Responsive tweaks */
+
+@media (max-width: 600px) {
+  .bd-progress {
+    margin-bottom: 1.2rem;
+  }
+
+  .bd-section-title {
+    font-size: 0.95rem;
+  }
+}

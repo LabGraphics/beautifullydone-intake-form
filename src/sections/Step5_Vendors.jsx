@@ -63,7 +63,9 @@ export default function Step5_Vendors() {
       </div>
       <div className="w-full flex flex-col items-center">
         <ManualCheckboxList title="Event Vendors:" options={VENDORS} />
+        <div className="bd-section-divider"></div>
         <ManualCheckboxList title="Creative & Digital Services:" options={CREATIVE} />
+        <div className="bd-section-divider"></div>
         <div className="mb-6 w-full sm:max-w-[500px] sm:mx-auto md:max-w-[550px]">
           <h3 className="font-semibold text-[#0D1B2A] mb-3 text-lg">None:</h3>
           <label className="flex items-start space-x-3 cursor-pointer p-2 rounded hover:bg-gray-50 transition-colors">

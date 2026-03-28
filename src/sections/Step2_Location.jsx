@@ -53,6 +53,8 @@ export default function Step2_Location() {
           options={IN_OUT} 
           error={errors.indoorsOutdoors} 
         />
+        <div className="bd-section-divider"></div>
+        <h3 className="bd-section-title">Location Details</h3>
         <FormField 
           label="Location Name / City" 
           value={locationName} 
@@ -67,6 +69,8 @@ export default function Step2_Location() {
           placeholder="e.g. 123 Main St..." 
           error={errors.fullAddress} 
         />
+        <div className="bd-section-divider"></div>
+        <h3 className="bd-section-title">Time Details</h3>
         <FormField 
           label="Event Start Time" 
           type="time" 

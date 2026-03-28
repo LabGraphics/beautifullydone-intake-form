@@ -53,6 +53,7 @@ export default function Step4_Rentals() {
         />
         {needsRentals === 'Yes' && (
           <div className="w-full animate-fade-in">
+            <div className="bd-section-divider"></div>
             <label className="font-medium text-[#0D1B2A] text-base sm:text-lg mb-3 block sm:max-w-[500px] sm:mx-auto md:max-w-[550px]">Select all that apply:</label>
             <CheckboxGroup
               options={RENTALS}
