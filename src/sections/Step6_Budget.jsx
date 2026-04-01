@@ -58,7 +58,7 @@ export default function Step6_Budget() {
       <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Budget</h2>
         <p className="bd-helper-text text-lg">Help us understand your preferred budget range.</p>
-        <div className="space-y-6 w-full">
+        <div className="space-y-6">
         <div>
       <SelectField 
           label="What is your estimated budget?" 

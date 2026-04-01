@@ -58,7 +58,7 @@ export default function Step7_ContactInfo() {
       <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Contact Information</h2>
         <p className="bd-helper-text text-lg">How can we reach you to discuss your event?</p>
-        <div className="space-y-6 w-full">
+        <div className="space-y-6">
         <div>
       <FormField 
           label="Full Name" 

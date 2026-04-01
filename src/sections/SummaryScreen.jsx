@@ -48,7 +48,7 @@ export default function SummaryScreen() {
       <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Review Your Details</h2>
         <p className="bd-helper-text text-lg">Please review the details below before submitting.</p>
-        <div className="space-y-6 w-full text-left">
+        <div className="space-y-6">
           <h3 className="font-semibold text-lg text-[#0D1B2A] border-b pb-2 mb-2">Event Details</h3>
         <SummaryItem label="Event Name" value={formData.eventName} />
         <SummaryItem label="Event Type" value={formData.eventType} />

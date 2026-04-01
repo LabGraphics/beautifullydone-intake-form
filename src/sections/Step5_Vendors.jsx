@@ -97,7 +97,7 @@ export default function Step5_Vendors() {
       <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Vendors & Creative</h2>
         <p className="bd-helper-text text-lg">Would you like help booking or coordinating additional services?</p>
-        <div className="space-y-6 w-full">
+        <div className="space-y-6">
         <ManualCheckboxList title="Event Vendors:" options={VENDORS} />
 {softWarnings.additionalVendors && <p className="bd-warning-text">{softWarnings.additionalVendors}</p>}
         <motion.div className="bd-divider" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.12 }}></motion.div>

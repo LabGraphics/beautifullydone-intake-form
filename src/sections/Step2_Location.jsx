@@ -59,7 +59,7 @@ export default function Step2_Location() {
       <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Event Location</h2>
         <p className="bd-helper-text text-lg">Where and when will your event take place?</p>
-        <div className="space-y-6 w-full">
+        <div className="space-y-6">
         <div>
       <SelectField 
           label="Where will your event take place?" 

@@ -62,7 +62,7 @@ export default function Step1_EventDetails() {
       <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Event Details</h2>
         <p className="bd-helper-text text-lg">Please provide the basic details for your event.</p>
-        <div className="space-y-6 w-full">
+        <div className="space-y-6">
         <div>
       <FormField 
           label="Event Name" 

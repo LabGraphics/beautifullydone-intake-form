@@ -2,10 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 export default function RadioGroup({ label, options, selectedValue, onChange, error }) {
+  const wrapperClasses = `bd-input flex flex-col text-left space-y-2 ${error ? 'error' : ''}`;
+
   return (
-    <div className="flex flex-col w-full text-left">
-      {label && <label className="bd-label">{label}</label>}
-      <div className="flex flex-col gap-4 space-y-2">
+    <div className={wrapperClasses}>
+      {label && <label className="bd-label m-0">{label}</label>}
+      <div className="flex flex-col gap-2">
         {options.map((opt, i) => (
           <label key={i} className="flex items-center space-x-3 cursor-pointer py-2 pr-2 rounded hover:bg-gray-50 transition-colors">
             <input

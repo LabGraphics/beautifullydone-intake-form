@@ -55,7 +55,7 @@ export default function Step8_FinalNotes() {
       <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Final Notes</h2>
         <p className="bd-helper-text text-lg">Almost done! Any last details?</p>
-        <div className="space-y-6 w-full">
+        <div className="space-y-6">
         <div>
       <FormField 
           label="Is there anything else you’d like us to know about your event?" 

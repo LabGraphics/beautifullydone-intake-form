@@ -63,7 +63,7 @@ export default function Step4_Rentals() {
       <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Rentals</h2>
         <p className="bd-helper-text text-lg">Do you need rentals for your event?</p>
-        <div className="space-y-6 w-full">
+        <div className="space-y-6">
         <div>
       <RadioGroup
           options={['Yes', 'No']}

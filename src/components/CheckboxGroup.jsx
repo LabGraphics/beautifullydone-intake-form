@@ -10,10 +10,12 @@ export default function CheckboxGroup({ label, options, selectedValues, onChange
     }
   };
 
+  const wrapperClasses = `bd-input flex flex-col text-left space-y-2 ${error ? 'error' : ''}`;
+
   return (
-    <div className="flex flex-col w-full text-left">
-      {label && <label className="bd-label">{label}</label>}
-      <div className="flex flex-col gap-4 space-y-2">
+    <div className={wrapperClasses}>
+      {label && <label className="bd-label m-0">{label}</label>}
+      <div className="flex flex-col gap-2">
         {options.map((opt, i) => (
           <label key={i} className="flex items-start space-x-3 cursor-pointer group py-2 pr-2 rounded hover:bg-gray-50 transition-colors">
             <motion.div whileTap={{ scale: 1.05 }} transition={{ duration: 0.18, ease: "easeOut" }} className="flex items-center h-6">

@@ -70,7 +70,7 @@ export default function Step3_Services() {
       <div className="bd-section max-w-[600px] mx-auto px-6 space-y-6">
         <h2>Services Needed</h2>
         <p className="bd-helper-text text-lg">Which services would you like Beautifully Done to provide?</p>
-        <div className="space-y-6 w-full">
+        <div className="space-y-6">
         <div>
       <CheckboxGroup
           label=""

@@ -28,7 +28,7 @@
     @apply block text-[14px] md:text-[15px] font-medium text-brand-navy mb-2 mt-1.5;
   }
   .bd-input {
-    @apply w-full px-3 md:px-3.5 py-3 bg-white border border-gray-200 rounded-lg text-gray-800 text-[16px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-blush focus:border-transparent;
+    @apply w-full px-3 md:px-3.5 py-3 bg-white border border-gray-200 rounded-lg text-gray-800 text-[16px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-blush focus:border-transparent focus-within:ring-2 focus-within:ring-brand-blush focus-within:border-transparent;
   }
   .bd-input.error {
     @apply border-brand-error focus:ring-brand-error;
